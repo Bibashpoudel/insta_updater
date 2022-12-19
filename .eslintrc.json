@@ -1,0 +1,20 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es2020": true
+    },
+    "extends": [
+        "google"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 11
+    },
+    "rules": {
+        "require-jsdoc":"off",
+        "max-len":"off",
+        "camelcase":"off",
+        "valid-jsdoc":"off",
+        "new-cap":"off"
+    }
+}

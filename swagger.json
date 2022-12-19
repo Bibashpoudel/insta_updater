@@ -1,0 +1,623 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "MSV",
+    "description": "",
+    "version": "0.1.9"
+  },
+  "paths": {
+    "/api/v1/sign-in": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Authenticates User with email and password",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        }
+      }
+    },
+    "/api/v1/logout": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "logs out the user from application.",
+        "security": [
+          {
+            "bearerAuth": {
+              "$ref": "#/components/securitySchemes/bearerAuth"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "200": {
+            "description": "A JSON array of user names",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/customer/{user_id}": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "type": "string",
+            "description": "user id"
+          }
+        ],
+        "summary": "Authenticates User with email and password",
+        "security": [
+          {
+            "bearerAuth": {
+              "$ref": "#/components/securitySchemes/bearerAuth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        }
+    }
+    },
+     "/api/v1/customers": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "number",
+            "description": "enter the page number"
+          },
+          {
+            "in": "query",
+            "name": "query",
+            "type": "string",
+            "description": "enter the query if you want to search for customers"
+          }
+        ],
+        "summary": "Authenticates User with email and password",
+        "security": [
+          {
+            "bearerAuth": {
+              "$ref": "#/components/securitySchemes/bearerAuth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        }
+    }
+    },
+    "/api/v1/enable-disable-customer/{user_id}": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "type": "string",
+            "description": "user id"
+          }
+        ],
+        "summary": "enable disable customer",
+        "security": [
+          {
+            "bearerAuth": {
+              "$ref": "#/components/securitySchemes/bearerAuth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        }
+      }
+    },
+    "/api/v1/create-customer": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "create customer",
+        "security": [
+          {
+            "bearerAuth": {
+              "$ref": "#/components/securitySchemes/bearerAuth"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  },
+                  "brand_name": {
+                    "type": "string"
+                  },
+                  "featured_image":{
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "logo":{
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "email",
+                  "first_name",
+                  "last_name",
+                  "role"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        }
+      }
+    },
+    "/api/v1/forgot-password": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "forgot password",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        }
+      }
+    },
+    "/api/v1/change-password": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "change password",
+        "security": [
+          {
+            "bearerAuth": {
+              "$ref": "#/components/securitySchemes/bearerAuth"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string"
+                  },
+                  "old_password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "password",
+                  "old_password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        }
+      }
+    },
+    "/api/v1/change-password-mail": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "change password",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "authorization": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "password",
+                  "authorization"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        }
+      }
+    },
+    "/api/v1/customer": {
+      "put": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Authenticates User with email and password",
+        "security": [
+          {
+            "bearerAuth": {
+              "$ref": "#/components/securitySchemes/bearerAuth"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "featured_image":{
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "logo":{
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "user_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        }
+      }
+    },
+    "/api/v1/customer-banners": {
+      "put": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "updates customer admins logo and the feature_image",
+        "security": [
+          {
+            "bearerAuth": {
+              "$ref": "#/components/securitySchemes/bearerAuth"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "featured_image":{
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "logo":{
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        }
+      }
+    },
+    "/api/v1/delete-customer/{user_id}": {
+      "delete": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "type": "string",
+            "description": "user id"
+          }
+        ],
+        "summary": "Authenticates User with email and password",
+        "security": [
+          {
+            "bearerAuth": {
+              "$ref": "#/components/securitySchemes/bearerAuth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        }
+      }
+    },
+    "/api/v1/get-brand/{query}": {
+      "get": {
+        "tags": [
+          "Brand"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "query",
+            "type": "string",
+            "description": "enter the query string"
+          }
+        ],
+        "summary": "get Brand info",
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        }
+      }
+    },
+    "/api/v1/user-brand-profiles": {
+      "get": {
+        "tags": [
+          "Brand"
+        ],
+        "summary": "get profiles of a users brand",
+        "security": [
+          {
+            "bearerAuth": {
+              "$ref": "#/components/securitySchemes/bearerAuth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        }
+      }
+    },
+    "/api/v1/get-profile-detail/{profile_id}": {
+      "get": {
+        "tags": [
+          "Brand"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "profile_id",
+            "type": "integer",
+            "description": "enter the profile id of the profile"
+          }
+        ],
+        "summary": "get profile details",
+        "security": [
+          {
+            "bearerAuth": {
+              "$ref": "#/components/securitySchemes/bearerAuth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        }
+      }
+    },
+    "/api/v1/get-profile-top-posts/{profile_id}": {
+      "get": {
+        "tags": [
+          "Brand"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "profile_id",
+            "type": "integer",
+            "description": "enter the profile id of the profile"
+          }
+        ],
+        "summary": "get profile details",
+        "security": [
+          {
+            "bearerAuth": {
+              "$ref": "#/components/securitySchemes/bearerAuth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        }
+      }
+    },
+    "/api/v1/get-profile-contents-breakdown/{profile_id}": {
+      "get": {
+        "tags": [
+          "Brand"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "profile_id",
+            "type": "integer",
+            "description": "enter the profile id of the profile"
+          },
+          {
+            "in": "query",
+            "name": "filter",
+            "type": "string",
+            "description": "enter the profile id of the profile"
+          }
+        ],
+        "summary": "get profile details",
+        "security": [
+          {
+            "bearerAuth": {
+              "$ref": "#/components/securitySchemes/bearerAuth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of users"
+          }
+        }
+      }
+    }
+  },
+    "components": {
+      "schemas": {
+        "User": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ]
+        }
+      },
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "responses": {
+        "UnauthorizedError": {
+          "description": "Access token is missing or invalid"
+        }
+      }
+    }
+  }
